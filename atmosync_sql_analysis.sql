@@ -121,3 +121,111 @@ SELECT
 FROM atmosync_data
 GROUP BY climate_score_group
 ORDER BY total_revenue DESC;
+
+-- ============================================
+-- NEW ATmosync SQL Analysis Queries
+-- ============================================
+
+
+-- 10. Find the top 10 cities by total units sold
+
+SELECT
+    city,
+    SUM(units_sold) AS total_units_sold
+FROM atmosync_data
+GROUP BY city
+ORDER BY total_units_sold DESC
+LIMIT 10;
+
+
+-- 11. Compare selling price with competitor price
+
+SELECT
+    product_category,
+    ROUND(AVG(avg_price_inr), 2) AS avg_selling_price,
+    ROUND(AVG(competitor_price_inr), 2) AS avg_competitor_price
+FROM atmosync_data
+GROUP BY product_category
+ORDER BY avg_selling_price DESC;
+
+
+-- 12. Find products/categories where our average price
+-- is higher than the competitor price
+
+SELECT
+    product_category,
+    ROUND(AVG(avg_price_inr), 2) AS avg_selling_price,
+    ROUND(AVG(competitor_price_inr), 2) AS avg_competitor_price
+FROM atmosync_data
+GROUP BY product_category
+HAVING AVG(avg_price_inr) > AVG(competitor_price_inr)
+ORDER BY avg_selling_price DESC;
+
+
+-- 13. Find cities with the highest potential lost revenue
+
+SELECT
+    city,
+    SUM(potential_lost_revenue_inr) AS potential_lost_revenue
+FROM atmosync_data
+GROUP BY city
+ORDER BY potential_lost_revenue DESC
+LIMIT 10;
+
+
+-- 14. Analyze demand based on weather condition
+
+SELECT
+    weather_condition,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    ROUND(AVG(units_sold), 2) AS avg_units_sold,
+    SUM(revenue_inr) AS total_revenue
+FROM atmosync_data
+GROUP BY weather_condition
+ORDER BY avg_demand_index DESC;
+
+
+-- 15. Find high-demand records with low inventory
+
+SELECT
+    city,
+    product_category,
+    demand_index,
+    inventory_units,
+    units_sold,
+    revenue_inr
+FROM atmosync_data
+WHERE demand_index >= 80
+  AND inventory_units <= 100
+ORDER BY demand_index DESC;
+
+
+-- 16. Find locations with high micro-climate risk
+
+SELECT
+    city,
+    zone,
+    ROUND(AVG(micro_climate_score), 2) AS avg_micro_climate_score,
+    ROUND(AVG(temperature_c), 2) AS avg_temperature,
+    ROUND(AVG(humidity_pct), 2) AS avg_humidity
+FROM atmosync_data
+GROUP BY city, zone
+HAVING AVG(micro_climate_score) >= 70
+ORDER BY avg_micro_climate_score DESC;
+
+
+-- 17. Identify potential arbitrage opportunities
+
+SELECT
+    city,
+    product_category,
+    ROUND(AVG(avg_price_inr), 2) AS avg_price,
+    ROUND(AVG(competitor_price_inr), 2) AS competitor_price,
+    ROUND(AVG(avg_price_inr - competitor_price_inr), 2) AS price_difference,
+    ROUND(AVG(demand_index), 2) AS avg_demand
+FROM atmosync_data
+GROUP BY city, product_category
+HAVING AVG(demand_index) >= 70
+   AND AVG(avg_price_inr) < AVG(competitor_price_inr)
+ORDER BY price_difference ASC;
+
