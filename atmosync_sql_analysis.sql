@@ -229,3 +229,77 @@ HAVING AVG(demand_index) >= 70
    AND AVG(avg_price_inr) < AVG(competitor_price_inr)
 ORDER BY price_difference ASC;
 
+-- 18. Monthly revenue trend
+
+SELECT
+    DATE_TRUNC('month', date) AS month,
+    SUM(revenue_inr) AS total_revenue
+FROM atmosync_data
+GROUP BY month
+ORDER BY month;
+
+
+-- 19. Monthly units sold trend
+
+SELECT
+    DATE_TRUNC('month', date) AS month,
+    SUM(units_sold) AS total_units_sold
+FROM atmosync_data
+GROUP BY month
+ORDER BY month;
+
+
+-- 20. Find cities with high demand and high revenue
+
+SELECT
+    city,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    SUM(revenue_inr) AS total_revenue
+FROM atmosync_data
+GROUP BY city
+HAVING AVG(demand_index) >= 70
+ORDER BY total_revenue DESC;
+
+
+-- 21. Analyze stockout rate by product category
+
+SELECT
+    product_category,
+    COUNT(*) AS total_records,
+    SUM(
+        CASE
+            WHEN LOWER(stockout) IN ('yes', 'true', '1')
+            THEN 1
+            ELSE 0
+        END
+    ) AS stockout_records,
+    ROUND(
+        100.0 * SUM(
+            CASE
+                WHEN LOWER(stockout) IN ('yes', 'true', '1')
+                THEN 1
+                ELSE 0
+            END
+        ) / COUNT(*),
+        2
+    ) AS stockout_rate_pct
+FROM atmosync_data
+GROUP BY product_category
+ORDER BY stockout_rate_pct DESC;
+
+
+-- 22. Find the highest revenue opportunities
+
+SELECT
+    city,
+    product_category,
+    opportunity_flag,
+    SUM(revenue_inr) AS total_revenue,
+    SUM(potential_lost_revenue_inr) AS potential_lost_revenue,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    ROUND(AVG(micro_climate_score), 2) AS avg_micro_climate_score
+FROM atmosync_data
+GROUP BY city, product_category, opportunity_flag
+ORDER BY potential_lost_revenue DESC
+LIMIT 20;
+
