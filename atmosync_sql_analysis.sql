@@ -303,3 +303,37 @@ GROUP BY city, product_category, opportunity_flag
 ORDER BY potential_lost_revenue DESC
 LIMIT 20;
 
+-- 23. Average revenue by weather condition
+
+SELECT
+    weather_condition,
+    ROUND(AVG(revenue_inr), 2) AS avg_revenue
+FROM atmosync_data
+GROUP BY weather_condition
+ORDER BY avg_revenue DESC;
+
+
+-- 24. Find cities with high demand but low inventory
+
+SELECT
+    city,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    ROUND(AVG(inventory_units), 2) AS avg_inventory
+FROM atmosync_data
+GROUP BY city
+HAVING AVG(demand_index) >= 70
+   AND AVG(inventory_units) <= 150
+ORDER BY avg_demand_index DESC;
+
+
+-- 25. Analyze revenue by opportunity flag
+
+SELECT
+    opportunity_flag,
+    COUNT(*) AS total_records,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    SUM(revenue_inr) AS total_revenue,
+    SUM(potential_lost_revenue_inr) AS potential_lost_revenue
+FROM atmosync_data
+GROUP BY opportunity_flag
+ORDER BY total_revenue DESC;
