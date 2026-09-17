@@ -337,3 +337,12 @@ SELECT
 FROM atmosync_data
 GROUP BY opportunity_flag
 ORDER BY total_revenue DESC;
+
+-- 26. Average micro-climate score by weather condition
+
+SELECT
+    weather_condition,
+    ROUND(AVG(micro_climate_score), 2) AS avg_micro_climate_score
+FROM atmosync_data
+GROUP BY weather_condition
+ORDER BY avg_micro_climate_score DESC;
