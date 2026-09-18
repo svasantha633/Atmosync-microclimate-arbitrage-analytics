@@ -346,3 +346,22 @@ SELECT
 FROM atmosync_data
 GROUP BY weather_condition
 ORDER BY avg_micro_climate_score DESC;
+
+-- 27. Average rainfall by city
+
+SELECT
+    city,
+    ROUND(AVG(rainfall_mm), 2) AS avg_rainfall_mm
+FROM atmosync_data
+GROUP BY city
+ORDER BY avg_rainfall_mm DESC;
+
+-- 28. Average AQI by city
+
+SELECT
+    city,
+    ROUND(AVG(aqi), 2) AS avg_aqi
+FROM atmosync_data
+GROUP BY city
+ORDER BY avg_aqi DESC;
+
