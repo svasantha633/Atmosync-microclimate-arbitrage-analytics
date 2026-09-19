@@ -365,3 +365,17 @@ FROM atmosync_data
 GROUP BY city
 ORDER BY avg_aqi DESC;
 
+-- 29. Identify high-demand, high-revenue opportunities with climate risk
+
+SELECT
+    city,
+    product_category,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    ROUND(AVG(micro_climate_score), 2) AS avg_micro_climate_score,
+    SUM(revenue_inr) AS total_revenue,
+    SUM(potential_lost_revenue_inr) AS potential_lost_revenue
+FROM atmosync_data
+GROUP BY city, product_category
+HAVING AVG(demand_index) >= 70
+   AND AVG(micro_climate_score) >= 60
+ORDER BY potential_lost_revenue DESC;
