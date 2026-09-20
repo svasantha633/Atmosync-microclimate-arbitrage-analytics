@@ -379,3 +379,19 @@ GROUP BY city, product_category
 HAVING AVG(demand_index) >= 70
    AND AVG(micro_climate_score) >= 60
 ORDER BY potential_lost_revenue DESC;
+
+-- 30. City-level demand, inventory and revenue risk analysis
+
+SELECT
+    city,
+    COUNT(*) AS total_records,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    ROUND(AVG(inventory_units), 2) AS avg_inventory_units,
+    SUM(units_sold) AS total_units_sold,
+    SUM(revenue_inr) AS total_revenue,
+    SUM(potential_lost_units) AS potential_lost_units,
+    SUM(potential_lost_revenue_inr) AS potential_lost_revenue
+FROM atmosync_data
+GROUP BY city
+HAVING AVG(demand_index) >= 60
+ORDER BY potential_lost_revenue DESC;
