@@ -395,3 +395,17 @@ FROM atmosync_data
 GROUP BY city
 HAVING AVG(demand_index) >= 60
 ORDER BY potential_lost_revenue DESC;
+
+-- 31. Analyze revenue performance across weather conditions
+
+SELECT
+    weather_condition,
+    COUNT(*) AS total_records,
+    ROUND(AVG(units_sold), 2) AS avg_units_sold,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    ROUND(AVG(avg_price_inr), 2) AS avg_selling_price,
+    SUM(revenue_inr) AS total_revenue,
+    SUM(potential_lost_revenue_inr) AS potential_lost_revenue
+FROM atmosync_data
+GROUP BY weather_condition
+ORDER BY total_revenue DESC;
