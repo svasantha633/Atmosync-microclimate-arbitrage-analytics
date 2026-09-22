@@ -409,3 +409,19 @@ SELECT
 FROM atmosync_data
 GROUP BY weather_condition
 ORDER BY total_revenue DESC;
+
+-- 32. Analyze product category performance and inventory risk
+
+SELECT
+    product_category,
+    COUNT(*) AS total_records,
+    SUM(units_sold) AS total_units_sold,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index,
+    ROUND(AVG(inventory_units), 2) AS avg_inventory_units,
+    SUM(revenue_inr) AS total_revenue,
+    SUM(potential_lost_units) AS potential_lost_units,
+    SUM(potential_lost_revenue_inr) AS potential_lost_revenue
+FROM atmosync_data
+GROUP BY product_category
+HAVING AVG(demand_index) >= 60
+ORDER BY potential_lost_revenue DESC;
