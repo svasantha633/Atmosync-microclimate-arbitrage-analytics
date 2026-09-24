@@ -425,3 +425,12 @@ FROM atmosync_data
 GROUP BY product_category
 HAVING AVG(demand_index) >= 60
 ORDER BY potential_lost_revenue DESC;
+
+-- 33. Average humidity by city
+
+SELECT
+    city,
+    ROUND(AVG(humidity_pct), 2) AS avg_humidity
+FROM atmosync_data
+GROUP BY city
+ORDER BY avg_humidity DESC;
