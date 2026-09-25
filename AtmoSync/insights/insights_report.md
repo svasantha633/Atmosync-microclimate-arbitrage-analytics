@@ -164,14 +164,6 @@ This suggests that the Opportunity Flag can be useful for identifying locations 
 
 The average selling price is slightly higher than the average competitor price across the product categories.
 
-| Product Category | Average Selling Price | Average Competitor Price |
-|---|---|---|
-| Cold Drinks | — | — |
-| Ice Cream | — | — |
-| Juices | — | — |
-| Energy Drinks | — | — |
-| Bottled Water | — | — |
-
 The dataset indicates that our average selling price is generally above competitor pricing.
 
 Therefore, pricing decisions should not be based only on the price difference. Demand, inventory availability and climate conditions should also be considered.
