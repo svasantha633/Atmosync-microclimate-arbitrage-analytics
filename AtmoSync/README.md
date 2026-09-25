@@ -1,6 +1,6 @@
-AtmoSync Micro-Climate Arbitrage Analytics
+# AtmoSync Micro-Climate Arbitrage Analytics
 
-Project Overview
+## Project Overview
 
 AtmoSync is a data analytics project that studies the relationship between micro-climate conditions, customer demand, sales, inventory and competitor pricing.
 
@@ -10,7 +10,7 @@ The project uses a dataset containing 10,000 sales and micro-climate records acr
 
 ---
 
-Objectives
+## Objectives
 
 - Analyze sales and revenue performance across cities and product categories.
 - Understand how temperature and weather conditions affect demand.
@@ -22,7 +22,7 @@ Objectives
 
 ---
 
-Dataset
+## Dataset
 
 The dataset contains information related to:
 
@@ -52,21 +52,21 @@ The cleaned dataset contains 10,000 records and 21 columns.
 
 ---
 
-Tools Used
+## Tools Used
 
-- Python – Data cleaning and exploratory analysis
-- Pandas – Data manipulation and analysis
-- SQL – Business and KPI analysis
-- MySQL – Database analysis
-- Excel – Initial dataset
-- Git & GitHub – Version control and project collaboration
-- VS Code – Development environment
+- **Python** – Data cleaning and exploratory analysis
+- **Pandas** – Data manipulation and analysis
+- **SQL** – Business and KPI analysis
+- **MySQL** – Database analysis
+- **Excel** – Initial dataset
+- **Git & GitHub** – Version control and project collaboration
+- **VS Code** – Development environment
 
 ---
 
-Project Workflow
+## Project Workflow
 
-1. Data Cleaning
+### 1. Data Cleaning
 
 The raw Excel dataset was cleaned using Python and Pandas.
 
@@ -81,11 +81,13 @@ The cleaning process included:
 
 The cleaned file is stored in:
 
+```
 data/cleaned/clean_data.csv
+```
 
 ---
 
-2. Exploratory Data Analysis
+### 2. Exploratory Data Analysis
 
 Exploratory analysis was performed using Python to understand:
 
@@ -101,16 +103,19 @@ Exploratory analysis was performed using Python to understand:
 
 The analysis script is available in:
 
+```
 analysis/exploratory_analysis.py
+```
 
 ---
 
-3. SQL Analysis
+### 3. SQL Analysis
 
 SQL was used to perform business-focused analysis on the cleaned dataset.
 
 The SQL analysis is divided into separate files:
 
+```
 sql/
 ├── 01_setup_database.sql
 ├── 02_data_overview.sql
@@ -119,6 +124,7 @@ sql/
 ├── 05_category_analysis.sql
 ├── 06_climate_analysis.sql
 └── 07_opportunity_analysis.sql
+```
 
 The analysis covers:
 
@@ -132,9 +138,9 @@ The analysis covers:
 
 ---
 
-Key Insights
+## Key Insights
 
-Demand and Temperature
+**Demand and Temperature**
 
 Demand increases as temperature increases.
 
@@ -142,31 +148,31 @@ The analysis shows that hot conditions have higher average units sold and higher
 
 This suggests that temperature can be used as an additional signal for inventory planning.
 
-Product Performance
+**Product Performance**
 
 Cold Drinks and Ice Cream are among the strongest revenue-generating categories in the dataset.
 
 These categories are also important when analyzing potential lost revenue caused by stockouts.
 
-Stockout Risk
+**Stockout Risk**
 
 Stockouts represent a significant business opportunity because unavailable inventory can result in unfulfilled demand and potential lost revenue.
 
 The analysis therefore focuses on identifying cities and product categories where stockout-related losses are higher.
 
-Climate and Demand
+**Climate and Demand**
 
 Temperature has a positive relationship with demand, while rainfall and humidity show negative relationships in the dataset.
 
 These relationships can be useful when developing demand forecasting and inventory planning strategies.
 
-Opportunity Analysis
+**Opportunity Analysis**
 
 The Opportunity Flag, Demand Index and Micro-Climate Score can be combined to identify locations and product combinations that may require additional attention.
 
 ---
 
-Business Recommendations
+## Business Recommendations
 
 Based on the analysis:
 
@@ -179,8 +185,9 @@ Based on the analysis:
 
 ---
 
-Project Structure
+## Project Structure
 
+```
 AtmoSync/
 │
 ├── analysis/
@@ -209,10 +216,11 @@ AtmoSync/
 │   └── 07_opportunity_analysis.sql
 │
 └── README.md
+```
 
 ---
 
-Conclusion
+## Conclusion
 
 AtmoSync demonstrates how sales, inventory, pricing and micro-climate data can be combined to support business analysis.
 
