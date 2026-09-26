@@ -434,3 +434,12 @@ SELECT
 FROM atmosync_data
 GROUP BY city
 ORDER BY avg_humidity DESC;
+
+-- 34. Average wind speed by city
+
+SELECT
+    city,
+    ROUND(AVG(wind_speed_kmph), 2) AS avg_wind_speed
+FROM atmosync_data
+GROUP BY city
+ORDER BY avg_wind_speed DESC;
