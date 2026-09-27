@@ -443,3 +443,12 @@ SELECT
 FROM atmosync_data
 GROUP BY city
 ORDER BY avg_wind_speed DESC;
+
+-- 35. Average AQI by product category
+
+SELECT
+    product_category,
+    ROUND(AVG(aqi), 2) AS avg_aqi
+FROM atmosync_data
+GROUP BY product_category
+ORDER BY avg_aqi DESC;
