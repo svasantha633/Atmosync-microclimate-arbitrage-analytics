@@ -452,3 +452,12 @@ SELECT
 FROM atmosync_data
 GROUP BY product_category
 ORDER BY avg_aqi DESC;
+
+-- 36. Average rainfall by product category
+
+SELECT
+    product_category,
+    ROUND(AVG(rainfall_mm), 2) AS avg_rainfall_mm
+FROM atmosync_data
+GROUP BY product_category
+ORDER BY avg_rainfall_mm DESC;
