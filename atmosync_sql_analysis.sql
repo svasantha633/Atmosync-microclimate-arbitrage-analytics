@@ -461,3 +461,12 @@ SELECT
 FROM atmosync_data
 GROUP BY product_category
 ORDER BY avg_rainfall_mm DESC;
+
+-- 37. Average wind speed by product category
+
+SELECT
+    product_category,
+    ROUND(AVG(wind_speed_kmph), 2) AS avg_wind_speed_kmph
+FROM atmosync_data
+GROUP BY product_category
+ORDER BY avg_wind_speed_kmph DESC;
