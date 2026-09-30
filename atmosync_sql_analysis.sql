@@ -470,3 +470,13 @@ SELECT
 FROM atmosync_data
 GROUP BY product_category
 ORDER BY avg_wind_speed_kmph DESC;
+
+
+-- 38. Average temperature by product category
+
+SELECT
+    product_category,
+    ROUND(AVG(temperature_c), 2) AS avg_temperature_c
+FROM atmosync_data
+GROUP BY product_category
+ORDER BY avg_temperature_c DESC;
