@@ -480,3 +480,12 @@ SELECT
 FROM atmosync_data
 GROUP BY product_category
 ORDER BY avg_temperature_c DESC;
+
+-- 39. Average humidity by product category
+
+SELECT
+    product_category,
+    ROUND(AVG(humidity_pct), 2) AS avg_humidity_pct
+FROM atmosync_data
+GROUP BY product_category
+ORDER BY avg_humidity_pct DESC;
