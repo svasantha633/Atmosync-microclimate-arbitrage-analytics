@@ -489,3 +489,13 @@ SELECT
 FROM atmosync_data
 GROUP BY product_category
 ORDER BY avg_humidity_pct DESC;
+
+-- 40. Average rainfall by city and product category
+
+SELECT
+    city,
+    product_category,
+    ROUND(AVG(rainfall_mm), 2) AS avg_rainfall_mm
+FROM atmosync_data
+GROUP BY city, product_category
+ORDER BY avg_rainfall_mm DESC;
