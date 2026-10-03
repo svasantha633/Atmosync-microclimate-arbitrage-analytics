@@ -499,3 +499,13 @@ SELECT
 FROM atmosync_data
 GROUP BY city, product_category
 ORDER BY avg_rainfall_mm DESC;
+
+-- 41. Average AQI by city and product category
+
+SELECT
+    city,
+    product_category,
+    ROUND(AVG(aqi), 2) AS avg_aqi
+FROM atmosync_data
+GROUP BY city, product_category
+ORDER BY avg_aqi DESC;
