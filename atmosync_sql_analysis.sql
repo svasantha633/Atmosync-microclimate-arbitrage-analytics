@@ -509,3 +509,14 @@ SELECT
 FROM atmosync_data
 GROUP BY city, product_category
 ORDER BY avg_aqi DESC;
+
+
+-- 42. Average micro-climate score by city and product category
+
+SELECT
+    city,
+    product_category,
+    ROUND(AVG(micro_climate_score), 2) AS avg_micro_climate_score
+FROM atmosync_data
+GROUP BY city, product_category
+ORDER BY avg_micro_climate_score DESC;
