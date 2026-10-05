@@ -4,6 +4,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python)
 ![Power BI](https://img.shields.io/badge/Power_BI-Dashboard-F2C811?style=for-the-badge&logo=powerbi)
 ![Data Records](https://img.shields.io/badge/Cleaned_Records-8%2C127_Rows-brightgreen?style=for-the-badge)
+![Commits Milestone](https://img.shields.io/badge/GitHub_Commits-20_Commits-purple?style=for-the-badge&logo=github)
 ![Status](https://img.shields.io/badge/Project_Status-Complete-success?style=for-the-badge)
 
 ---
@@ -12,7 +13,7 @@
 
 **AtmoSync** is an end-to-end Data Analytics project investigating hyper-local micro-climate variations (Temperature, Humidity, Rainfall, Air Quality Index) and their direct impact on retail sales velocity, dynamic pricing arbitrage, and stockout revenue leakage across **5 major NCR cities** (*Delhi, Gurugram, Noida, Ghaziabad, Faridabad*).
 
-Evaluating **8,127 cleaned observations** across 20 micro-zones from January 1, 2026 to August 31, 2026, this repository demonstrates advanced SQL techniques, SQLite database modeling, Python ETL automation, and interactive business insights discovery.
+Evaluating **8,127 cleaned observations** across 20 micro-zones from January 1, 2026 to August 31, 2026, this repository demonstrates advanced SQL techniques, SQLite database modeling, Python ETL automation, performance query benchmarking, and interactive business insights discovery.
 
 ---
 
@@ -158,15 +159,18 @@ Atmosync-microclimate-arbitrage-analytics/
 │   ├── 09_distribution_segmentation.sql # Temp buckets & CASE WHEN segments
 │   ├── 10_subqueries_and_ctes.sql      # CTEs & arbitrage headroom models
 │   ├── 11_window_functions_and_anomalies.sql # DENSE_RANK & running totals
-│   └── 12_insights_queries.sql         # Final business decision queries
+│   ├── 12_insights_queries.sql         # Final business decision queries
+│   └── 13_query_optimization.sql       # Performance index benchmarks
 │
 ├── insights/
 │   └── insights_report.md              # Executive Insights Report
 │
 ├── scripts/
-│   └── import_data.py                  # Database import helper script
+│   ├── import_data.py                  # Database import helper script
+│   └── benchmark_queries.py            # SQL query execution benchmark script
 │
 ├── clean_data.py                       # Automated cleaning pipeline script
+├── CONTRIBUTING.md                     # Open-source contribution guidelines
 └── README.md                           # Main interactive project documentation
 ```
 
@@ -185,9 +189,9 @@ Atmosync-microclimate-arbitrage-analytics/
    python scripts/import_data.py
    ```
 
-3. **Execute SQL Analytics**:
+3. **Execute SQL Query Benchmarks**:
    ```bash
-   python -c "import sqlite3, pandas as pd; conn = sqlite3.connect('data/atmosync.db'); print(pd.read_sql_query('SELECT COUNT(*) FROM atmosync_data', conn))"
+   python scripts/benchmark_queries.py
    ```
 
 ---
@@ -196,3 +200,4 @@ Atmosync-microclimate-arbitrage-analytics/
 
 - **Data Analyst / SQL Pipeline**: Tahseen Parvej ([Branch `Tahseen_Parvej`](https://github.com/svasantha633/Atmosync-microclimate-arbitrage-analytics/tree/Tahseen_Parvej))
 - **Team Repository**: [svasantha633/Atmosync-microclimate-arbitrage-analytics](https://github.com/svasantha633/Atmosync-microclimate-arbitrage-analytics)
+- **Contribution Guide**: See [`CONTRIBUTING.md`](CONTRIBUTING.md)
