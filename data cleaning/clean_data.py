@@ -1,8 +1,7 @@
 """
 AtmoSync Data Cleaning & Standardization Script
 ===============================================
-This script performs end-to-end data cleaning, deduplication, formula validation,
-out-of-bounds clipping, and formatting for the AtmoSync Micro-Climate Arbitrage Analytics dataset.
+Outputs cleaned dataset to data cleaning/clean_data.csv and data cleaning/clean_data.xlsx
 """
 
 import os
@@ -48,23 +47,13 @@ def clean_atmosync_data(input_path: str, output_excel_path: str, output_csv_path
     df['Date'] = pd.to_datetime(df['Date']).dt.date
     
     # 5. Formula Recalculation & Business Rule Validation
-    # 5.1 Revenue recalculation
     df['Revenue_INR'] = (df['Units_Sold'] * df['Avg_Price_INR']).round(2)
-    
-    # 5.2 Potential Lost Revenue recalculation
     df['Potential_Lost_Revenue_INR'] = (df['Potential_Lost_Units'] * df['Avg_Price_INR']).round(2)
-    
-    # 5.3 Stockout Status Validation
     df['Stockout'] = np.where(df['Potential_Lost_Units'] > 0, 'Yes', 'No')
     
-    # 5.4 Demand Index recalculation (Units_Sold / Category Mean Units Sold)
     cat_means = df.groupby('Product_Category')['Units_Sold'].transform('mean')
     df['Demand_Index'] = (df['Units_Sold'] / cat_means).round(2)
     
-    # 5.5 Opportunity Flag Re-evaluation
-    # High Opportunity: Demand_Index >= 1.25 AND Micro_Climate_Score >= 59.0 AND Stockout == 'No'
-    # Moderate Opportunity: Demand_Index >= 1.05 AND NOT High Opportunity
-    # Normal: Demand_Index < 1.05
     is_high = (df['Demand_Index'] >= 1.25) & (df['Micro_Climate_Score'] >= 59.0) & (df['Stockout'] == 'No')
     is_mod = (df['Demand_Index'] >= 1.05) & (~is_high)
     
@@ -74,17 +63,16 @@ def clean_atmosync_data(input_path: str, output_excel_path: str, output_csv_path
         default='Normal'
     )
     
-    # 6. Precision Rounding for Floating Point Columns
     float_cols = ['Temperature_C', 'Humidity_%', 'Rainfall_mm', 'Wind_Speed_kmph', 
                   'Avg_Price_INR', 'Competitor_Price_INR', 'Revenue_INR', 
                   'Potential_Lost_Revenue_INR', 'Demand_Index', 'Micro_Climate_Score']
     for col in float_cols:
         df[col] = df[col].round(2)
         
-    # 7. Sort Chronologically & Geographically
     df = df.sort_values(by=['Date', 'City', 'Zone', 'Product_Category']).reset_index(drop=True)
     
-    # 8. Save Cleaned Excel and CSV Files
+    os.makedirs(os.path.dirname(output_excel_path), exist_ok=True)
+    
     print(f"Saving cleaned Excel file to: {output_excel_path}")
     with pd.ExcelWriter(output_excel_path, engine='openpyxl') as writer:
         df.to_excel(writer, sheet_name='AtmoSync_Data', index=False)
@@ -97,8 +85,9 @@ def clean_atmosync_data(input_path: str, output_excel_path: str, output_csv_path
     print(f"Cleaned dataset contains {len(df)} records across {len(df.columns)} columns.")
 
 if __name__ == "__main__":
-    input_file = r"c:\Users\RIMSHA\OneDrive\Desktop\INFO.PRO\AtmoSync_Micro_Climate_Arbitrage_Analytics_10000.xlsx"
-    output_excel = r"c:\Users\RIMSHA\OneDrive\Desktop\INFO.PRO\AtmoSync_Micro_Climate_Arbitrage_Analytics_Cleaned.xlsx"
-    output_csv = r"c:\Users\RIMSHA\OneDrive\Desktop\INFO.PRO\AtmoSync_Micro_Climate_Arbitrage_Analytics_Cleaned.csv"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    input_file = os.path.join(base_dir, "..", "AtmoSync_Micro_Climate_Arbitrage_Analytics_10000.xlsx")
+    output_excel = os.path.join(base_dir, "clean_data.xlsx")
+    output_csv = os.path.join(base_dir, "clean_data.csv")
     
     clean_atmosync_data(input_file, output_excel, output_csv)
