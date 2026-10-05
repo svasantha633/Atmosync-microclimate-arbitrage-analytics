@@ -520,3 +520,13 @@ SELECT
 FROM atmosync_data
 GROUP BY city, product_category
 ORDER BY avg_micro_climate_score DESC;
+
+-- 43. Average demand index by city and product category
+
+SELECT
+    city,
+    product_category,
+    ROUND(AVG(demand_index), 2) AS avg_demand_index
+FROM atmosync_data
+GROUP BY city, product_category
+ORDER BY avg_demand_index DESC;
