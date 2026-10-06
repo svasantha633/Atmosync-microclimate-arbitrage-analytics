@@ -530,3 +530,13 @@ SELECT
 FROM atmosync_data
 GROUP BY city, product_category
 ORDER BY avg_demand_index DESC;
+
+-- 44. Average units sold by city and product category
+
+SELECT
+    city,
+    product_category,
+    ROUND(AVG(units_sold), 2) AS avg_units_sold
+FROM atmosync_data
+GROUP BY city, product_category
+ORDER BY avg_units_sold DESC;
