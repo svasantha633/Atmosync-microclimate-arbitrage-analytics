@@ -540,3 +540,13 @@ SELECT
 FROM atmosync_data
 GROUP BY city, product_category
 ORDER BY avg_units_sold DESC;
+
+-- 45. Average inventory by city and product category
+
+SELECT
+    city,
+    product_category,
+    ROUND(AVG(inventory_units), 2) AS avg_inventory_units
+FROM atmosync_data
+GROUP BY city, product_category
+ORDER BY avg_inventory_units DESC;
