@@ -550,3 +550,27 @@ SELECT
 FROM atmosync_data
 GROUP BY city, product_category
 ORDER BY avg_inventory_units DESC;
+
+-- 46. Stockout rate by city
+
+SELECT
+    city,
+    COUNT(*) AS total_records,
+    SUM(
+        CASE
+            WHEN LOWER(stockout) IN ('yes', 'true', '1') THEN 1
+            ELSE 0
+        END
+    ) AS stockout_records,
+    ROUND(
+        100.0 * SUM(
+            CASE
+                WHEN LOWER(stockout) IN ('yes', 'true', '1') THEN 1
+                ELSE 0
+            END
+        ) / COUNT(*),
+        2
+    ) AS stockout_rate_pct
+FROM atmosync_data
+GROUP BY city
+ORDER BY stockout_rate_pct DESC;
