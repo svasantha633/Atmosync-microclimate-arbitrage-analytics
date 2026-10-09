@@ -574,3 +574,14 @@ SELECT
 FROM atmosync_data
 GROUP BY city
 ORDER BY stockout_rate_pct DESC;
+
+-- 47. Potential lost revenue by city and product category
+
+SELECT
+    city,
+    product_category,
+    SUM(potential_lost_units) AS total_lost_units,
+    ROUND(SUM(potential_lost_revenue_inr), 2) AS potential_lost_revenue
+FROM atmosync_data
+GROUP BY city, product_category
+ORDER BY potential_lost_revenue DESC;
