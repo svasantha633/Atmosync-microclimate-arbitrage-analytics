@@ -585,3 +585,12 @@ SELECT
 FROM atmosync_data
 GROUP BY city, product_category
 ORDER BY potential_lost_revenue DESC;
+
+-- 48. Average selling price by city
+
+SELECT
+    city,
+    ROUND(AVG(avg_price_inr), 2) AS avg_selling_price
+FROM atmosync_data
+GROUP BY city
+ORDER BY avg_selling_price DESC;
